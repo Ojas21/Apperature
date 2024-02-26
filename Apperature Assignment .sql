@@ -291,4 +291,19 @@ WHERE (SELECT COUNT(*) FROM students s2 WHERE s2.batch = s.batch AND s2.id <= s.
 GROUP BY s.name, s.batch
 ORDER BY s.batch, total_marks DESC;
 
+FROM students s
+JOIN marks m ON s.id = m.student_id
+GROUP BY s.id, s.name
+ORDER BY total_marks DESC
+LIMIT 10;
+
+---Since Limit sometimes throws an error on some sql editors a substitute for above query would be 
+
+SELECT TOP 10 s.name, SUM(m.marks) AS total_marks
+FROM students s
+JOIN marks m ON s.id = m.student_id
+GROUP BY s.id, s.name
+ORDER BY total_marks DESC;
+
+
 
